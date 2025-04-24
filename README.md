@@ -1,2 +1,141 @@
-# Pascoa
-site de feliz pascoa 
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Álbum de Fotos</title>
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  <style>
+    body {
+      background-color: rgb(49, 50, 51);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .contador {
+      font-size: 20px;
+      margin-top: 10px;
+      background-color: #333;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-top: 20px;
+      text-align: center;
+      color: #f0f0f0;
+    }
+
+    .swiper {
+      width: 100%;
+      max-width: 250px;
+      margin: 20px auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      background-color: white;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      margin: 0 auto;
+    }
+
+    h4 {
+      text-align: center;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="spotify-player">
+    <iframe src="https://open.spotify.com/embed/track/1mSxbLW7fKABfeY4lGpg0E?si=rKGhc9YJRQ644tRxBwKyQA"
+      width="300" height="80" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+
+  <!-- Swiper Container -->
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="https://i.im.ge/2025/04/21/vF1pg6.eu-i-ele.jpeg" alt="eu e ele" /></div>
+      <div class="swiper-slide"><img src="https://i.im.ge/2025/04/21/vF275W.eu-i-ele2.jpeg" alt="Foto 2" /></div>
+      <div class="swiper-slide"><img src="https://i.im.ge/2025/04/21/vF2iJG.eu-i-ele3.jpeg" alt="Foto 3" /></div>
+      
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+  <h1> 💌 Eu te amo há: </h1>
+  <div class="contador" id="contador">Carregando...</div>
+
+  <h4>Feliz Páscoa, meu amor! que o seu dia seja <br />tão doce quanto o carinho que você me dá <br />todos os dias. você é meu chocolate branco <br />favorito!</h4>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper(".swiper", {
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      loop: true,
+      autoHeight: true,
+    });
+
+    const dataInicial = new Date("2024-02-01T00:00:00");
+
+    function atualizarContador() {
+      const agora = new Date();
+      let anos = agora.getFullYear() - dataInicial.getFullYear();
+      let meses = agora.getMonth() - dataInicial.getMonth();
+      let dias = agora.getDate() - dataInicial.getDate();
+      let horas = agora.getHours() - dataInicial.getHours();
+      let minutos = agora.getMinutes() - dataInicial.getMinutes();
+      let segundos = agora.getSeconds() - dataInicial.getSeconds();
+
+      if (segundos < 0) {
+        segundos += 60;
+        minutos--;
+      }
+      if (minutos < 0) {
+        minutos += 60;
+        horas--;
+      }
+      if (horas < 0) {
+        horas += 24;
+        dias--;
+      }
+      if (dias < 0) {
+        const mesAnterior = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+        dias += mesAnterior;
+        meses--;
+      }
+      if (meses < 0) {
+        meses += 12;
+        anos--;
+      }
+
+      const texto = `${anos} ano(s), ${meses} mês(es), ${dias} dia(s), ${horas}h ${minutos}min ${segundos}s`;
+      document.getElementById("contador").innerText = texto;
+    }
+
+    setInterval(atualizarContador, 1000);
+    atualizarContador();
+  </script>
+</body>
+</html>
